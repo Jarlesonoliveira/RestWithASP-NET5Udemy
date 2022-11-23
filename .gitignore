@@ -1,0 +1,7 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/00_RestWithASPNETUdemy_ScaffoldViaTerminal/.vs/RestWithASPNETUdemy_01/FileContentIndex
+/00_RestWithASPNETUdemy_ScaffoldViaTerminal/bin/Debug/net5.0
+/00_RestWithASPNETUdemy_ScaffoldViaTerminal/obj
