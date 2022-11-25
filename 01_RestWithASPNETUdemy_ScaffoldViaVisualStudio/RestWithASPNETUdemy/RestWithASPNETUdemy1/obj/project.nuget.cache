@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6vP/vQyuBIRclFGQDQE9EZlbC0nmqEsifumBfM/gXVf9Tz3TJDUBwPdbEcyXz4bosHh5u+LfiSf9eKySVWCM7Q==",
+  "dgSpecHash": "wJ2sziWmnNuUL7hw2BReALsBt/m5bfRv4CO+lrVJHuTnEkWgEdkbhMlWgLl/KTryJJRpln/Tx+wstfex5A6Tpw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\FranciscoJarlesondeO\\source\\repos\\RestWithASP-NET5Udemy2\\01_RestWithASPNETUdemy_ScaffoldViaVisualStudio\\RestWithASPNETUdemy\\RestWithASPNETUdemy1\\RestWithASPNETUdemy1.csproj",
+  "projectFilePath": "C:\\Users\\FranciscoJarlesondeO\\source\\repos\\RestWithASP-NET5Udemy\\01_RestWithASPNETUdemy_ScaffoldViaVisualStudio\\RestWithASPNETUdemy\\RestWithASPNETUdemy1\\RestWithASPNETUdemy1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\FranciscoJarlesondeO\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\FranciscoJarlesondeO\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
