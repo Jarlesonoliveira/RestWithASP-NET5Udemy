@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestWithASPNETUdemy1.Model;
-using RestWithASPNETUdemy1.Services;
+using RestWithASPNETUdemy.Model;
+using RestWithASPNETUdemy.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestWithASPNETUdemy1.Controllers
+namespace RestWithASPNETUdemy.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
 
@@ -51,7 +51,8 @@ namespace RestWithASPNETUdemy1.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id) {
+        public IActionResult Delete(long id) 
+        {           
             _personService.Delete(id);
              return NoContent();
         }

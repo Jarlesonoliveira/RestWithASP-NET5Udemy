@@ -1,4 +1,4 @@
-﻿namespace RestWithASPNETUdemy1.Model
+﻿namespace RestWithASPNETUdemy.Model
 {
     public class Person
     {

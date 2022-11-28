@@ -1,14 +1,15 @@
-﻿using RestWithASPNETUdemy1.Model;
+﻿using RestWithASPNETUdemy.Model;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace RestWithASPNETUdemy1.Services.Implementations
+namespace RestWithASPNETUdemy.Services.Implementations
 {
     public class PersonServiceImplementation : IPersonService
     {
         private volatile int count;
-        public Person Create(Person person) {
+        public Person Create(Person person) 
+        {
             return person;
         }
 
@@ -19,15 +20,17 @@ namespace RestWithASPNETUdemy1.Services.Implementations
 
         public List<Person> FindAll() {
             List<Person> persons = new List<Person>();
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 8; i++) 
+            {
                 Person person = MockPerson(i);
+                persons.Add(person);
             }
             return persons;
         }
 
         public Person FindByID(long id) {
             return new Person {
-                Id = 1,
+                Id = IncrementAndGet(),
                 FirstName = "Jarleson",
                 LastName = "Costa",
                 Address = "Uberlandia - Minas Gerais - Brasil",
@@ -42,7 +45,7 @@ namespace RestWithASPNETUdemy1.Services.Implementations
 
         private Person MockPerson(int i) {
             return new Person {
-                Id = ImcrementAndGet(),
+                Id = IncrementAndGet(),
                 FirstName = "Person Name" + i,
                 LastName = "Person LastName" + i,
                 Address = "Some Address" + i,
@@ -50,7 +53,7 @@ namespace RestWithASPNETUdemy1.Services.Implementations
             };
         }
 
-        private int ImcrementAndGet() 
+        private int IncrementAndGet() 
         {
             return Interlocked.Increment(ref count);
         }
