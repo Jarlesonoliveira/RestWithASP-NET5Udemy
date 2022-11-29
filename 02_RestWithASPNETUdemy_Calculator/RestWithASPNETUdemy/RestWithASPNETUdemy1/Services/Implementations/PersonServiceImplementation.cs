@@ -1,7 +1,9 @@
 ﻿using RestWithASPNETUdemy.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace RestWithASPNETUdemy.Services.Implementations
 {
@@ -18,7 +20,8 @@ namespace RestWithASPNETUdemy.Services.Implementations
 
         }
 
-        public List<Person> FindAll() {
+        public List<Person> FindAll() 
+        {
             List<Person> persons = new List<Person>();
             for (int i = 0; i < 8; i++) 
             {
@@ -28,8 +31,10 @@ namespace RestWithASPNETUdemy.Services.Implementations
             return persons;
         }
 
-        public Person FindByID(long id) {
-            return new Person {
+        public Person FindByID(long id) 
+            {
+            return new Person 
+            {
                 Id = IncrementAndGet(),
                 FirstName = "Jarleson",
                 LastName = "Costa",
@@ -43,8 +48,10 @@ namespace RestWithASPNETUdemy.Services.Implementations
             return person;
         }
 
-        private Person MockPerson(int i) {
-            return new Person {
+        private Person MockPerson(int i) 
+        {
+            return new Person 
+            {
                 Id = IncrementAndGet(),
                 FirstName = "Person Name" + i,
                 LastName = "Person LastName" + i,
@@ -53,7 +60,7 @@ namespace RestWithASPNETUdemy.Services.Implementations
             };
         }
 
-        private int IncrementAndGet() 
+        private long IncrementAndGet()
         {
             return Interlocked.Increment(ref count);
         }
