@@ -2,7 +2,7 @@
 
 namespace RestWithASPNETUdemy.Model.Context
 {
-    public class MySQLContext :DbContext
+    public class MySQLContext : DbContext
     {
         public MySQLContext() 
         {
