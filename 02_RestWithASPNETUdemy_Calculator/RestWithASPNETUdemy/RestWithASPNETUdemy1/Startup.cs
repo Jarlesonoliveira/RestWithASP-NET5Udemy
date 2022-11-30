@@ -26,6 +26,9 @@ namespace RestWithASPNETUdemy
             var connection = Configuration["MySQLConnection:MySQLConnectionString"];
             services.AddDbContext<MySQLContext>(Options => Options.UseMySql(connection));
 
+            //Versioning API
+            services.AddApiVersioning();
+
             //Dependency Injection
             services.AddScoped<IPersonService, PersonServiceImplementation>();
         }
