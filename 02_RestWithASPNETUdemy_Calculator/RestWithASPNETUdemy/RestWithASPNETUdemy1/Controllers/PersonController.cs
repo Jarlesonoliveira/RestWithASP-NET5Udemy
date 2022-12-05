@@ -1,76 +1,78 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using RestWithASPNETUdemy.Business;
-using RestWithASPNETUdemy.Model;
-using RestWithASPNETUdemy.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using APIAspNetCore5.Business;
+using APIAspNetCore5.Model;
+using APIAspNetCore5.Repository;
+using Microsoft.AspNetCore.Mvc;
 
-namespace RestWithASPNETUdemy.Controllers
+namespace APIAspNetCore5.Controllers
 {
+
+    /* Mapeia as requisições de http://localhost:{porta}/api/person/
+    Por padrão o ASP.NET Core mapeia todas as classes que extendem Controller
+    pegando a primeira parte do nome da classe em lower case [Person]Controller
+    e expõe como endpoint REST
+    */
     [ApiVersion("1")]
     [ApiController]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : ControllerBase
     {
+        //Declaração do serviço usado
+        private IPersonRepository _personBusiness;
 
-        private readonly ILogger<PersonController> _logger;
-        // Declaração do serviço utilizado
-        private IPersonBusiness _personBusiness;
-
-        // Injeção de uma instância de IPersonService
-        // ao criar uma instância de PersonController
-        public PersonController(ILogger<PersonController> logger, IPersonBusiness personBusiness) {
-            _logger = logger;
+        /* Injeção de uma instancia de IPersonService ao criar
+        uma instancia de PersonController */
+        public PersonController(IPersonRepository personBusiness)
+        {
             _personBusiness = personBusiness;
         }
 
-        // Mapeia requisições GET para https://localhost:{port}/api/person
-        // Não obtém parâmetros para FindAll -> Search All
+        //Mapeia as requisições GET para http://localhost:{porta}/api/persons/v1/
+        //Get sem parâmetros para o FindAll --> Busca Todos
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(_personBusiness.FindAll());
         }
 
-        // Mapeia as solicitações GET para https://localhost:{port}/api/person/{id}
-        // recebendo um ID como no Request Path
-        // Obter com parâmetros para FindById -> Pesquisar por ID
+        //Mapeia as requisições GET para http://localhost:{porta}/api/persons/v1/{id}
+        //recebendo um ID como no Path da requisição
+        //Get com parâmetros para o FindById --> Busca Por ID
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var person = _personBusiness.FindByID(id);
-            if(person == null) return NotFound();
+            var person = _personBusiness.FindById(id);
+            if (person == null) return NotFound();
             return Ok(person);
         }
 
-        // Mapeia as solicitações POST para https://localhost:{port}/api/person/
-        // [FromBody] consome o objeto JSON enviado no corpo da requisição
+        //Mapeia as requisições POST para http://localhost:{porta}/api/persons/v1/
+        //O [FromBody] consome o Objeto JSON enviado no corpo da requisição
         [HttpPost]
-        public IActionResult Post([FromBody] Person person )
+        public IActionResult Post([FromBody] Person person)
         {
-            if(person == null) return BadRequest();
-            return Ok(_personBusiness.Create(person));
+            if (person == null) return BadRequest();
+            return new ObjectResult(_personBusiness.Create(person));
         }
 
-        // Mapeia as solicitações PUT para https://localhost:{port}/api/person/
-        // [FromBody] consome o objeto JSON enviado no corpo da requisição
+        //Mapeia as requisições PUT para http://localhost:{porta}/api/persons/v1/
+        //O [FromBody] consome o Objeto JSON enviado no corpo da requisição
         [HttpPut]
-        public IActionResult Put([FromBody] Person person )
+        public IActionResult Put([FromBody] Person person)
         {
-            if(person == null) return BadRequest();
-            return Ok(_personBusiness.Update(person));
+            if (person == null) return BadRequest();
+            var updatedPerson = _personBusiness.Update(person);
+            if (updatedPerson == null) return BadRequest();
+            return new ObjectResult(updatedPerson);
         }
 
-        // Mapeia solicitações DELETE para https://localhost:{port}/api/person/{id}
-        // recebendo um ID como no Request Path
+
+        //Mapeia as requisições DELETE para http://localhost:{porta}/api/persons/v1/{id}
+        //recebendo um ID como no Path da requisição
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id) 
+        public IActionResult Delete(int id)
         {
             _personBusiness.Delete(id);
-             return NoContent();
+            return NoContent();
         }
     }
 }

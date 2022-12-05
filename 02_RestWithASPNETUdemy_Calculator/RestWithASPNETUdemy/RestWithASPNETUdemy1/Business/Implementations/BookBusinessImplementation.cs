@@ -4,34 +4,34 @@ using System.Collections.Generic;
 
 namespace APIAspNetCore5.Business.Implementations
 {
-    public class PersonBusinessImplementation : IPersonBusiness
+    public class BookBusinessImplementation : IBookBusiness
     {
 
-        private readonly IPersonRepository _repository;
+        private readonly IBookRepository _repository;
 
-        public PersonBusinessImplementation(IPersonRepository repository)
+        public BookBusinessImplementation(IBookRepository repository)
         {
             _repository = repository;
         }
 
-        public Person Create(Person person)
+        public Books Create(Books book)
         {
-            return _repository.Create(person);
+            return _repository.Create(book);
         }
 
-        public Person FindById(long id)
+        public Books FindById(long id)
         {
             return _repository.FindById(id);
         }
 
-        public List<Person> FindAll()
+        public List<Books> FindAll()
         {
             return _repository.FindAll();
         }
 
-        public Person Update(Person person)
+        public Books Update(Books book)
         {
-            return _repository.Update(person);
+            return _repository.Update(book);
         }
 
         public void Delete(long id)
@@ -39,7 +39,7 @@ namespace APIAspNetCore5.Business.Implementations
             _repository.Delete(id);
         }
 
-        public bool Exists(long id)
+        public bool Exists(string id)
         {
             return _repository.Exists(id);
         }
