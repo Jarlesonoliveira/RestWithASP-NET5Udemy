@@ -1,10 +1,11 @@
 ﻿
+using RestWithASPNETUdemy.Model.Base;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APIAspNetCore5.Model
 {
     [Table("persons")]
-    public class Person 
+    public class Person : BaseEntity
     {
         [Column("FirstName")]
         public string FirstName { get; set; }
@@ -17,8 +18,5 @@ namespace APIAspNetCore5.Model
 
         [Column("Gender")]
         public string Gender { get; set; }
-
-        [Column("Id")]
-        public long Id { get; internal set; }
     }
 }

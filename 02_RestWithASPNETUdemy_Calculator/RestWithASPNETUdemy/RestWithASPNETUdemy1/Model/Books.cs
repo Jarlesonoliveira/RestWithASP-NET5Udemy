@@ -1,10 +1,11 @@
-﻿using System;
+﻿using RestWithASPNETUdemy.Model.Base;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APIAspNetCore5.Model
 {
     [Table("books")]
-    public class Books
+    public class Book : BaseEntity
     {
         [Column("Title")]
         public string Title { get; set; }
@@ -17,6 +18,5 @@ namespace APIAspNetCore5.Model
 
         [Column("LaunchDate")]
         public DateTime LaunchDate { get; set; }
-        public string Id { get; internal set; }
     }
 }

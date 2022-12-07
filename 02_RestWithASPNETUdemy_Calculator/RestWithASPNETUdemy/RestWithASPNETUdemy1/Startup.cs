@@ -4,7 +4,7 @@ using APIAspNetCore5.Business;
 using APIAspNetCore5.Business.Implementations;
 using APIAspNetCore5.Model.Context;
 using APIAspNetCore5.Repository;
-using APIAspNetCore5.Repository.Implementations;
+using APIAspNetCore5.Repository.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -48,9 +48,8 @@ namespace APIAspNetCore5
 
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
-            services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
             services.AddScoped<IBookBusiness, BookBusinessImplementation>();
-            services.AddScoped<IBookRepository, BookRepositoryImplementation>();
+            services.AddScoped(typeof(IRepository<>),typeof(GenericRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,7 +84,7 @@ namespace APIAspNetCore5
                     IsEraseDisabled = true,
                 };
 
-                evolve.Repair();
+                evolve.Migrate();
             } catch (Exception ex)
             {
                 Log.Error("Database migration failed.", ex);

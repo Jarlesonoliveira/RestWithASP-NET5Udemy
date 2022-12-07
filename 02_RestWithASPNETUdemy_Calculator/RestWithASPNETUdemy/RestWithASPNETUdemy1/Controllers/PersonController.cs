@@ -17,11 +17,11 @@ namespace APIAspNetCore5.Controllers
     public class PersonController : ControllerBase
     {
         //Declaração do serviço usado
-        private IPersonRepository _personBusiness;
+        private IPersonBusiness _personBusiness;
 
         /* Injeção de uma instancia de IPersonService ao criar
         uma instancia de PersonController */
-        public PersonController(IPersonRepository personBusiness)
+        public PersonController(IPersonBusiness personBusiness)
         {
             _personBusiness = personBusiness;
         }

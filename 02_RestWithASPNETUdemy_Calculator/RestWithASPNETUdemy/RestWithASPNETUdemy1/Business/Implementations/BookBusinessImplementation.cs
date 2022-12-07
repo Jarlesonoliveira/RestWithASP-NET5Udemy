@@ -1,5 +1,6 @@
 ﻿using APIAspNetCore5.Model;
 using APIAspNetCore5.Repository;
+using System;
 using System.Collections.Generic;
 
 namespace APIAspNetCore5.Business.Implementations
@@ -7,29 +8,30 @@ namespace APIAspNetCore5.Business.Implementations
     public class BookBusinessImplementation : IBookBusiness
     {
 
-        private readonly IBookRepository _repository;
+        private readonly IRepository<Book> _repository;
 
-        public BookBusinessImplementation(IBookRepository repository)
+        public BookBusinessImplementation(IRepository<Book> repository)
         {
             _repository = repository;
         }
 
-        public Books Create(Books book)
+        public Book Create(Book book)
         {
+            
             return _repository.Create(book);
         }
 
-        public Books FindById(long id)
+        public Book FindById(long id)
         {
             return _repository.FindById(id);
         }
 
-        public List<Books> FindAll()
+        public List<Book> FindAll()
         {
             return _repository.FindAll();
         }
 
-        public Books Update(Books book)
+        public Book Update(Book book)
         {
             return _repository.Update(book);
         }
@@ -39,7 +41,7 @@ namespace APIAspNetCore5.Business.Implementations
             _repository.Delete(id);
         }
 
-        public bool Exists(string id)
+        public bool Exists(long id)
         {
             return _repository.Exists(id);
         }
