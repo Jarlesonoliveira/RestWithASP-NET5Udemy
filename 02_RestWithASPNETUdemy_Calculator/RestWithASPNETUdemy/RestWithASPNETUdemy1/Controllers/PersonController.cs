@@ -1,7 +1,6 @@
 ﻿using APIAspNetCore5.Business;
-using APIAspNetCore5.Model;
-using APIAspNetCore5.Repository;
 using Microsoft.AspNetCore.Mvc;
+using RestWithASPNETUdemy.Data.VO;
 
 namespace APIAspNetCore5.Controllers
 {
@@ -48,7 +47,7 @@ namespace APIAspNetCore5.Controllers
         //Mapeia as requisições POST para http://localhost:{porta}/api/persons/v1/
         //O [FromBody] consome o Objeto JSON enviado no corpo da requisição
         [HttpPost]
-        public IActionResult Post([FromBody] Person person)
+        public IActionResult Post([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
             return new ObjectResult(_personBusiness.Create(person));
@@ -57,7 +56,7 @@ namespace APIAspNetCore5.Controllers
         //Mapeia as requisições PUT para http://localhost:{porta}/api/persons/v1/
         //O [FromBody] consome o Objeto JSON enviado no corpo da requisição
         [HttpPut]
-        public IActionResult Put([FromBody] Person person)
+        public IActionResult Put([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
             var updatedPerson = _personBusiness.Update(person);
