@@ -47,6 +47,12 @@ namespace APIAspNetCore5
                 MigrateDatabase(connection);
             }
 
+            services.AddCors(options => options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
             services.AddControllers();
 
             services.AddApiVersioning();
@@ -98,6 +104,8 @@ namespace APIAspNetCore5
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseSwagger();
 
