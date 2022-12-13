@@ -1,24 +1,24 @@
 ﻿using APIAspNetCore5.Business;
 using Microsoft.AspNetCore.Mvc;
 using RestWithASPNETUdemy.Data.VO;
+using RestWithASPNETUdemy.Hypermedia.Filters;
 
 namespace APIAspNetCore5.Controllers
 {
 
-    /* Mapeia as requisições de http://localhost:{porta}/api/person/
+    /* Mapeia as requisições de http://localhost:{porta}/api/persons/v1/
     Por padrão o ASP.NET Core mapeia todas as classes que extendem Controller
     pegando a primeira parte do nome da classe em lower case [Person]Controller
     e expõe como endpoint REST
     */
     [ApiVersion("1")]
-    [ApiController]
     [Route("api/[controller]/v{version:apiVersion}")]
-    public class PersonController : ControllerBase
+    public class PersonController : Controller
     {
         //Declaração do serviço usado
         private IPersonBusiness _personBusiness;
 
-        /* Injeção de uma instancia de IPersonService ao criar
+        /* Injeção de uma instancia de IPersonBusiness ao criar
         uma instancia de PersonController */
         public PersonController(IPersonBusiness personBusiness)
         {
@@ -28,6 +28,7 @@ namespace APIAspNetCore5.Controllers
         //Mapeia as requisições GET para http://localhost:{porta}/api/persons/v1/
         //Get sem parâmetros para o FindAll --> Busca Todos
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
             return Ok(_personBusiness.FindAll());
@@ -37,6 +38,7 @@ namespace APIAspNetCore5.Controllers
         //recebendo um ID como no Path da requisição
         //Get com parâmetros para o FindById --> Busca Por ID
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(long id)
         {
             var person = _personBusiness.FindById(id);
@@ -47,6 +49,7 @@ namespace APIAspNetCore5.Controllers
         //Mapeia as requisições POST para http://localhost:{porta}/api/persons/v1/
         //O [FromBody] consome o Objeto JSON enviado no corpo da requisição
         [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
@@ -56,6 +59,7 @@ namespace APIAspNetCore5.Controllers
         //Mapeia as requisições PUT para http://localhost:{porta}/api/persons/v1/
         //O [FromBody] consome o Objeto JSON enviado no corpo da requisição
         [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
@@ -64,10 +68,10 @@ namespace APIAspNetCore5.Controllers
             return new ObjectResult(updatedPerson);
         }
 
-
         //Mapeia as requisições DELETE para http://localhost:{porta}/api/persons/v1/{id}
         //recebendo um ID como no Path da requisição
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Delete(int id)
         {
             _personBusiness.Delete(id);

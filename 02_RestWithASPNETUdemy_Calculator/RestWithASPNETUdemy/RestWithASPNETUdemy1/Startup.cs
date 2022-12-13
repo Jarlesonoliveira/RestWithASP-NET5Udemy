@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using APIAspNetCore5.Business;
 using APIAspNetCore5.Business.Implementations;
+using APIAspNetCore5.Hypermedia.Enricher;
 using APIAspNetCore5.Model.Context;
 using APIAspNetCore5.Repository;
 using APIAspNetCore5.Repository.Generic;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
+using RestWithASPNETUdemy.Hypermedia.Filters;
 using Serilog;
 
 namespace APIAspNetCore5
@@ -56,6 +58,11 @@ namespace APIAspNetCore5
             })
             .AddXmlSerializerFormatters();
 
+            var filterOptions = new HypermediaFilterOptions();
+            filterOptions.ContentResponseEnricherList.Add(new PersonEnricher());
+
+            services.AddSingleton(filterOptions);
+
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<IBookBusiness, BookBusinessImplementation>();
@@ -79,6 +86,7 @@ namespace APIAspNetCore5
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
         }
 

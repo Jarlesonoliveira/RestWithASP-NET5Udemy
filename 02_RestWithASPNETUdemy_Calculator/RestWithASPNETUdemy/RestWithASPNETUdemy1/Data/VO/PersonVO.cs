@@ -1,20 +1,18 @@
-﻿using RestWithASPNETUdemy.Model.Base;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using APIAspNetCore5.Hypermedia;
+using RestWithASPNETUdemy.Hypermedia.Abstract;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace RestWithASPNETUdemy.Data.VO
 {
-    public class PersonVO
+    public class PersonVO : ISupportsHyperMedia
     {
-        [JsonPropertyName("code")]
-        public long Id { get; set; }
-        [JsonPropertyName("name")]
+        public long? Id { get; set; }
         public string FirstName { get; set; }
-        [JsonPropertyName("last_name")]
         public string LastName { get; set; }
-        [JsonIgnore]
         public string Address { get; set; }
-        [JsonPropertyName("sex")]
         public string Gender { get; set; }
+
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
 }

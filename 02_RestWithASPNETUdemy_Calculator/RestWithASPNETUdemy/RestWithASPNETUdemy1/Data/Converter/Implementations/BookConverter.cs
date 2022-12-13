@@ -1,6 +1,6 @@
-﻿using APIAspNetCore5.Model;
+﻿using APIAspNetCore5.Data.VO;
+using APIAspNetCore5.Model;
 using RestWithASPNETUdemy.Data.Converter.Contract;
-using RestWithASPNETUdemy.Data.VO;
 using System.Collections.Generic;
 using System.Linq;
 
