@@ -71,8 +71,6 @@ namespace APIAspNetCore5.Repository.Generic
 
         public T Update(T item)
         {
-            if (!Exists(item.Id)) return null;
-
             // Pega o estado atual do registro no banco
             // seta as alterações e salva
             var result = dataset.SingleOrDefault(b => b.Id == item.Id);
@@ -82,12 +80,16 @@ namespace APIAspNetCore5.Repository.Generic
                 {
                     _context.Entry(result).CurrentValues.SetValues(item);
                     _context.SaveChanges();
-                } catch (Exception ex)
+                    return result;
+                } 
+                catch (Exception)
                 {
-                    throw ex;
+                    throw;
                 }
+            } else
+            {
+                return null;
             }
-            return result;
         }
     }
 }

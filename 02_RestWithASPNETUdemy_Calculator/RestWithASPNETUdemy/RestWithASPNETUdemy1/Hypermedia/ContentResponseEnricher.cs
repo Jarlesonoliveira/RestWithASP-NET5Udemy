@@ -45,8 +45,8 @@ namespace APIAspNetCore5.Hypermedia
         public async Task Enrich(ResultExecutingContext response)
         {
             var urlHelper = (new UrlHelperFactory()).GetUrlHelper(response);
-
             if (response.Result is OkObjectResult okObjectResult)
+            {
                 if (okObjectResult.Value is T model)
                 {
                     await EnrichModel(model, urlHelper);
@@ -65,6 +65,7 @@ namespace APIAspNetCore5.Hypermedia
                         EnrichModel(element, urlHelper);
                     });
                 }
+            }
             await Task.FromResult<object>(null);
         }
 

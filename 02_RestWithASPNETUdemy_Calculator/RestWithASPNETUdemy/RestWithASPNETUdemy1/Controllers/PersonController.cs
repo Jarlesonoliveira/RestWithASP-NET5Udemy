@@ -1,4 +1,5 @@
 ﻿using APIAspNetCore5.Business;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestWithASPNETUdemy.Data.VO;
 using RestWithASPNETUdemy.Hypermedia.Filters;
@@ -13,6 +14,8 @@ namespace APIAspNetCore5.Controllers
     e expõe como endpoint REST
     */
     [ApiVersion("1")]
+    [ApiController]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : Controller
     {

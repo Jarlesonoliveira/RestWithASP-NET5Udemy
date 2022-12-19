@@ -1,5 +1,6 @@
 ﻿using APIAspNetCore5.Business;
 using APIAspNetCore5.Data.VO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestWithASPNETUdemy.Hypermedia.Filters;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ namespace APIAspNetCore5.Controllers
 {
 
     [ApiVersion("1")]
+    [ApiController]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class BookController : Controller
     {
