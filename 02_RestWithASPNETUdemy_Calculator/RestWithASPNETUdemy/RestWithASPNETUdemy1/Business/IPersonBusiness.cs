@@ -1,4 +1,5 @@
-﻿using RestWithASPNETUdemy.Data.VO;
+﻿using APIAspNetCore5.Model;
+using RestWithASPNETUdemy.Data.VO;
 using System.Collections.Generic;
 
 namespace APIAspNetCore5.Business
@@ -9,6 +10,7 @@ namespace APIAspNetCore5.Business
         PersonVO FindById(long id);
         List<PersonVO> FindAll();
         PersonVO Update(PersonVO person);
+        PersonVO Disable(long id);
         void Delete(long id);
         bool Exists(long id);
     }

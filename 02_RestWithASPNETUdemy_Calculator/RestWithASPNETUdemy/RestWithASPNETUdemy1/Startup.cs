@@ -142,6 +142,7 @@ namespace APIAspNetCore5
             services.AddScoped<ILoginBusiness, LoginBusinessImplementation>();
 
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
 
             services.AddTransient<IUserRepository, UserRepositoryImplementation>();
 
