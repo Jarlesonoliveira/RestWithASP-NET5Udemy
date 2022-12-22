@@ -1,9 +1,10 @@
-﻿using System;
+﻿using RestWithASPNETUdemy.Hypermedia.Abstract;
+using System;
 using System.Collections.Generic;
 
 namespace RestWithASPNETUdemy.Hypermedia.Utils
 {
-    public class PagedSearchDTO<T>
+    public class PagedSearchVO<T> where T : ISupportsHyperMedia
     {
         public int CurrentPage { get; set; }
         public int PageSize { get; set; }
@@ -13,9 +14,9 @@ namespace RestWithASPNETUdemy.Hypermedia.Utils
         public Dictionary<string, object> Filters { get; set; }
         public List<T> List { get; set; }
 
-        public PagedSearchDTO() { }
+        public PagedSearchVO() { }
 
-        public PagedSearchDTO(int currentPage, int pageSize, string sortFields, string sortDirections)
+        public PagedSearchVO(int currentPage, int pageSize, string sortFields, string sortDirections)
         {
             CurrentPage = currentPage;
             PageSize = pageSize;
@@ -23,7 +24,7 @@ namespace RestWithASPNETUdemy.Hypermedia.Utils
             SortDirections = sortDirections;
         }
 
-        public PagedSearchDTO(int currentPage, int pageSize, string sortFields, string sortDirections, Dictionary<string, object> filters)
+        public PagedSearchVO(int currentPage, int pageSize, string sortFields, string sortDirections, Dictionary<string, object> filters)
         {
             CurrentPage = currentPage;
             PageSize = pageSize;
@@ -32,7 +33,8 @@ namespace RestWithASPNETUdemy.Hypermedia.Utils
             Filters = filters;
         }
 
-        public PagedSearchDTO(int currentPage, string sortFields, string sortDirections) : this(currentPage, 10, sortFields, sortDirections)
+        public PagedSearchVO(int currentPage, string sortFields, string sortDirections)
+            : this(currentPage, 10, sortFields, sortDirections)
         {
         }
 

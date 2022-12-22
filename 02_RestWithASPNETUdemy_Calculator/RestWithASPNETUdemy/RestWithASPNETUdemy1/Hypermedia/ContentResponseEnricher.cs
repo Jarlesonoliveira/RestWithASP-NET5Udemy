@@ -28,7 +28,7 @@ namespace APIAspNetCore5.Hypermedia
         /// <returns></returns>
         public virtual bool CanEnrich(Type contentType)
         {
-            return contentType == typeof(T) || contentType == typeof(List<T>) || contentType == typeof(PagedSearchDTO<T>);
+            return contentType == typeof(T) || contentType == typeof(List<T>) || contentType == typeof(PagedSearchVO<T>);
         }
 
         protected abstract Task EnrichModel(T content, IUrlHelper urlHelper);
@@ -58,7 +58,7 @@ namespace APIAspNetCore5.Hypermedia
                     {
                         EnrichModel(element, urlHelper);
                     });
-                } else if (okObjectResult.Value is PagedSearchDTO<T> pagedSearch)
+                } else if (okObjectResult.Value is PagedSearchVO<T> pagedSearch)
                 {
                     Parallel.ForEach(pagedSearch.List.ToList(), (element) =>
                     {

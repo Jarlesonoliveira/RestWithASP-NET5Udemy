@@ -1,6 +1,7 @@
 ﻿using APIAspNetCore5.Business;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using RestWithASPNETUdemy.Data.VO;
 using RestWithASPNETUdemy.Hypermedia.Filters;
 using System.Collections.Generic;
@@ -19,27 +20,34 @@ namespace APIAspNetCore5.Controllers
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : Controller
     {
+        private readonly ILogger<PersonController> _logger;
+
         //Declaração do serviço usado
         private IPersonBusiness _personBusiness;
 
         /* Injeção de uma instancia de IPersonBusiness ao criar
         uma instancia de PersonController */
-        public PersonController(IPersonBusiness personBusiness)
+        public PersonController(ILogger<PersonController> logger, IPersonBusiness personBusiness)
         {
+            _logger = logger;
             _personBusiness = personBusiness;
         }
 
         //Mapeia as requisições GET para http://localhost:{porta}/api/persons/v1/
         //Get sem parâmetros para o FindAll --> Busca Todos
-        [HttpGet]
+        [HttpGet("{sortDirection}/{pageSize}/{page}")]
         [ProducesResponseType((200), Type = typeof(List<PersonVO>))]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
-        public IActionResult Get()
+        public IActionResult Get(
+            [FromQuery] string name,
+            string sortDirection,
+            int pageSize,
+            int page)
         {
-            return Ok(_personBusiness.FindAll());
+            return Ok(_personBusiness.FindWithPagedSearch(name, sortDirection, pageSize, page));
         }
 
         //Mapeia as requisições GET para http://localhost:{porta}/api/persons/v1/{id}
@@ -58,6 +66,18 @@ namespace APIAspNetCore5.Controllers
             return Ok(person);
         }
 
+        [HttpGet("findPersonByName")]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Get([FromQuery] string firstName, [FromQuery] string lastName)
+        {
+            var person = _personBusiness.FindByName(firstName, lastName);
+            if (person == null) return NotFound();
+            return Ok(person);
+        }
         //Mapeia as requisições POST para http://localhost:{porta}/api/persons/v1/
         //O [FromBody] consome o Objeto JSON enviado no corpo da requisição
         [HttpPost]

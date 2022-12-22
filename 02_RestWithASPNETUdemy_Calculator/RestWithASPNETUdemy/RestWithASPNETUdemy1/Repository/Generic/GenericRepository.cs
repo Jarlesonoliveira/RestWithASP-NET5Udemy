@@ -32,9 +32,9 @@ namespace APIAspNetCore5.Repository.Generic
                 dataset.Add(item);
                 _context.SaveChanges();
                 return item;
-            } catch (Exception ex)
+            } catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -48,25 +48,42 @@ namespace APIAspNetCore5.Repository.Generic
                     dataset.Remove(result);
                     _context.SaveChanges();
                 }
-            } catch (Exception ex)
+            } catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
-
+        public List<T> FindAll()
+        {
+            return dataset.ToList();
+        }
+        public T FindById(long id)
+        {
+            return dataset.SingleOrDefault(p => p.Id.Equals(id));
+        }
         public bool Exists(long? id)
         {
             return dataset.Any(b => b.Id.Equals(id));
         }
 
-        public List<T> FindAll()
+        public List<T> FindWithPagedSearch(string query)
         {
-            return dataset.ToList();
+            return dataset.FromSqlRaw<T>(query).ToList();
         }
 
-        public T FindById(long id)
+        public int GetCount(string query)
         {
-            return dataset.SingleOrDefault(p => p.Id.Equals(id));
+            var result = "";
+            using (var connection = _context.Database.GetDbConnection()) 
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    result = command.ExecuteScalar().ToString();
+                }
+            }
+            return int.Parse(result);
         }
 
         public T Update(T item)
