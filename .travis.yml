@@ -1,0 +1,23 @@
+sudo: required
+dist: bionic
+linguage: csharp
+mono: none
+services: docker
+before_install:
+  - cd 02_RestWithASPNETUdemy_Calculator/
+  - echo "We are in the right folder!"
+script:
+  - docker-compose build
+before_deploy:
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+deploy:
+  provider: script
+  script:
+    docker tag rest-with-asp-net-udemy:dev jarlesonoliveira/rest-with-asp-net-udemy:dev;
+    docker tag rest-with-asp-net-udemy-db:latest jarlesonoliveira/rest-with-asp-net-udemy-db:latest;
+    docker push jarlesonoliveira/rest-with-asp-net-udemy-db;
+    docker push jarlesonoliveira/rest-with-asp-net-udemy:dev;
+  on:
+    branch: master
+notifications:
+  email: false

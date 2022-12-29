@@ -18,7 +18,8 @@ namespace APIAspNetCore5.Model
 
         [Column("Gender")]
         public string Gender { get; set; }
-        
+
+        //[NotMapped]
         [Column("Enabled")]
         public bool Enabled { get; set; }
     }

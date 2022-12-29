@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestWithASPNETUdemy", "RestWithASPNETUdemy1\RestWithASPNETUdemy.csproj", "{A53EE86E-AA20-4B27-8AAF-62E889D8C149}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{26CC942E-5FD6-484F-A4DB-40E1B38852FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A53EE86E-AA20-4B27-8AAF-62E889D8C149}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A53EE86E-AA20-4B27-8AAF-62E889D8C149}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A53EE86E-AA20-4B27-8AAF-62E889D8C149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26CC942E-5FD6-484F-A4DB-40E1B38852FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26CC942E-5FD6-484F-A4DB-40E1B38852FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26CC942E-5FD6-484F-A4DB-40E1B38852FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26CC942E-5FD6-484F-A4DB-40E1B38852FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

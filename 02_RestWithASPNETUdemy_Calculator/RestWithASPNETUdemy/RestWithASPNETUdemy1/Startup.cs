@@ -1,40 +1,43 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using APIAspNetCore5.Business;
-using APIAspNetCore5.Business.Implementations;
-using APIAspNetCore5.Hypermedia.Enricher;
-using APIAspNetCore5.Model.Context;
-using APIAspNetCore5.Repository;
-using APIAspNetCore5.Repository.Generic;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Rewrite;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Net.Http.Headers;
-using Microsoft.OpenApi.Models;
 using RestWithASPNETUdemy.Business;
 using RestWithASPNETUdemy.Business.Implementations;
-using RestWithASPNETUdemy.Configurations;
-using RestWithASPNETUdemy.Hypermedia.Filters;
 using RestWithASPNETUdemy.Repository;
-using RestWithASPNETUdemy.Repository.Generic.Implementation;
+using System;
+using System.Collections.Generic;
+using Microsoft.Net.Http.Headers;
+using RestWithASPNETUdemy.Hypermedia.Filters;
+using Microsoft.AspNetCore.Rewrite;
 using RestWithASPNETUdemy.Services;
 using RestWithASPNETUdemy.Services.Implementations;
+using RestWithASPNETUdemy.Configurations;
+using Microsoft.Extensions.Options;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using APIAspNetCore5.Business;
+using APIAspNetCore5.Business.Implementations;
+using RestWithASPNETUdemy.Repository.Generic.Implementation;
+using APIAspNetCore5.Repository.Generic;
+using APIAspNetCore5.Repository;
+using APIAspNetCore5.Hypermedia.Enricher;
+using APIAspNetCore5.Model.Context;
 using Serilog;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace APIAspNetCore5
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public IWebHostEnvironment Environment { get; }
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
@@ -45,8 +48,6 @@ namespace APIAspNetCore5
                 .WriteTo.Console()
                 .CreateLogger();
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -90,10 +91,7 @@ namespace APIAspNetCore5
             var connection = Configuration["MySqlConnection:MySqlConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
 
-            if (Environment.IsDevelopment())
-            {
-                MigrateDatabase(connection);
-            }
+            MigrateDatabase(connection);
 
             services.AddCors(options => options.AddDefaultPolicy(builder =>
             {
@@ -137,9 +135,12 @@ namespace APIAspNetCore5
             services.AddSingleton(filterOptions);
 
             //Dependency Injection
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<IBookBusiness, BookBusinessImplementation>();
             services.AddScoped<ILoginBusiness, LoginBusinessImplementation>();
+            services.AddScoped<IFileBusiness, FileBusinessImplementation>();
 
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPersonRepository, PersonRepository>();
@@ -189,7 +190,7 @@ namespace APIAspNetCore5
             try
             {
                 var evolveConnection = new MySql.Data.MySqlClient.MySqlConnection(connection);
-                
+
                 var evolve = new Evolve.Evolve(evolveConnection, msg => Log.Information(msg))
                 {
                     Locations = new List<string> { "db/migrations", "db/dataset" },
