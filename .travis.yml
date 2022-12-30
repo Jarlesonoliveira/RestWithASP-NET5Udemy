@@ -2,9 +2,10 @@ sudo: required
 dist: bionic
 linguage: csharp
 mono: none
+dotnet: 5.0
 services: docker
 before_install:
-  - cd 02_RestWithASPNETUdemy_Calculator/
+  - cd 02_RestWithASPNETUdemy_Calculator/RestWithASPNETUdemy
   - echo "We are in the right folder!"
 script:
   - docker-compose build
