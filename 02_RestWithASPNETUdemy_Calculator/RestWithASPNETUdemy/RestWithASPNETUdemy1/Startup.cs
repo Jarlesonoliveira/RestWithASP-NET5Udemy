@@ -91,7 +91,7 @@ namespace APIAspNetCore5
             var connection = Configuration["MySqlConnection:MySqlConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
 
-            MigrateDatabase(connection);
+            //MigrateDatabase(connection);
 
             services.AddCors(options => options.AddDefaultPolicy(builder =>
             {
