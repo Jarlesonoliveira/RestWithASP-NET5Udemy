@@ -1,0 +1,95 @@
+.Book-container {
+    width: 100%;
+    max-width: 1180px;
+    padding: 0 30px;
+    margin: 32px auto;
+}
+
+.Book-container header {
+    display: flex;
+    align-items: center;
+}
+
+.Book-container header span {
+    font-size: 20px;
+    margin-left: 24px;
+}
+
+.Book-container header span strong {
+    color: #251FC5;
+}
+
+.Book-container header span img {
+    height: 64px;
+}
+
+.Book-container header a {
+    width: 260px;
+    margin-left: auto;
+    margin-top: 0;
+}
+
+.Book-container header button {
+    height: 60px;
+    width: 60px;
+    border-radius: 4px;
+    border: 1px solid #DCDCE6;
+    background: transparent;
+    margin-left: 16PX;
+    transition: border-color 0.5s;
+}
+
+.Book-container header button:hover {
+    border-color: #251FC5;
+}
+
+.Book-container h1 {
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
+
+.Book-container ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 24px;
+    list-style: none;
+}
+
+.Book-container ul li {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.Book-container ul li button {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    border: 0;
+    background: transparent;
+}
+
+.Book-container ul li button + button {
+    top: 50px;
+}
+
+.Book-container ul li button:hover {
+    opacity: 0.8;
+}
+
+.Book-container ul li strong {
+    display: block;
+    margin-bottom: 16px;
+    color: #41414D;
+}
+
+.Book-container ul li P + strong {
+    margin-top: 32px;
+}
+
+.Book-container ul li P {
+    color: #737380;
+    line-height: 21px;
+    font-size: 16px;
+}

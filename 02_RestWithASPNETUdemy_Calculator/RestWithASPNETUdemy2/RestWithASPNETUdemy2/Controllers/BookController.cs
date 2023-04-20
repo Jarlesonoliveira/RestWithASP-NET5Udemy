@@ -48,7 +48,7 @@ namespace APIAspNetCore5.Controllers
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(long id)
         {
-            var book = _bookBusiness.FindById(id);
+            var book = _bookBusiness.FindByID(id);
             if (book == null) return NotFound();
             return Ok(book);
         }
